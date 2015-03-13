@@ -1,0 +1,21 @@
+{
+    "name": "dungphanxuan/yii2-froalaeditor",
+    "description": "Froala Widget for Yii2",
+    "type": "yii2-extension",
+    "keywords": ["yii2","froalaeditor"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "dungphanxuan",
+            "email": "dungphanxuan@vccorp.vn"
+        }
+    ],
+    "require": {
+        "yiisoft/yii2": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "dungphanxuan\\froalaeditor\\": ""
+        }
+    }
+}
