@@ -49,22 +49,31 @@ class FroalaEditorWidget extends InputWidget
     public function registerClientScript()
     {
         $view = $this->getView();
-        /*
-         * Language fix
-         * @author <https://github.com/dungphanxuan>
-         */
-        if (!isset($this->options['lang']) || empty($this->options['lang'])) {
-            $this->options['lang'] = strtolower(substr(Yii::$app->language, 0, 2));
-        }
-        $options = empty($this->options) ? '' : Json::encode($this->options);
+        $this->initClientOptions();
+
         $asset = FroalaEditorAsset::register($view);
+        //theme
+        $themeType = isset($this->clientOptions['theme']) ? $this->clientOptions['theme'] : 'default';
+        if ($themeType != 'default') {
+            $view->registerCssFile($asset->baseUrl . "/css/themes/{$themeType}.css", ['depends' => '\dungphanxuan\froalaeditor\FroalaEditorAsset']);
+        }
+        //language
+        $langType = isset($this->clientOptions['language']) ? $this->clientOptions['language'] : 'en_us';
+        if ($langType != 'es_us') {
+            $view->registerJsFile($asset->baseUrl . "/js/langs/{$langType}.js", ['depends' => '\dungphanxuan\froalaeditor\FroalaEditorAsset']);
+        }
+
+        $options = empty($this->options) ? '' : Json::encode($this->options);
         $id = $this->options['id'];
 
         $this->updateAsset();
         $view ->registerJsFile('http://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.0/jquery.min.js');
         $view ->registerCssFile('http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css');
+        $varName = self::PLUGIN_NAME . '_' . str_replace('-', '_', $id);
         $js = "
-         $('#".$id ."').editable({inlineMode: false, alwaysBlank: true});
+         $('#".$id ."').editable(
+             " . Json::encode($this->clientOptions) . "
+         );
         ";
         $view->registerJs($js);
     }
@@ -77,6 +86,28 @@ class FroalaEditorWidget extends InputWidget
             'sourcePath' => null,
             'js' => ['jquery.js' => 'http://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.0/jquery.min.js'],
         ];
+    }
+    /**
+     * client options init
+     */
+    protected function initClientOptions()
+    {
+        // KindEditor optional parameters
+        $params = [
+            'inlineMode',
+            'theme',
+            'language',
+        ];
+        $options = [];
+        $options['height'] = '180px';
+        $options['them'] = 'dark';
+        $options['language'] = 'en_us';
+        foreach ($params as $key) {
+            if (isset($this->clientOptions[$key])) {
+                $options[$key] = $this->clientOptions[$key];
+            }
+        }
+        $this->clientOptions = $options;
     }
 
 }
