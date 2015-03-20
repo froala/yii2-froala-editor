@@ -25,9 +25,9 @@ Once the extension is installed, simply use it in your code by  :
 
 ```php
 <?php echo dungphanxuan\froalaeditor\FroalaEditorWidget::widget([
-    'name' => 'myedit',
+    'name' => 'content',
     'options'=>[// html attributes
-        'id'=>'myedit'
+        'id'=>'content'
     ],
     'clientOptions'=>[
         'inlineMode'=> false,
@@ -42,8 +42,9 @@ or use with a model:
 ```php
 <?php echo dungphanxuan\froalaeditor\FroalaEditorWidget::widget([
     'model' => $model,
+    'attribute' => 'content',
     'options'=>[// html attributes
-        'id'=>'myedit'
+        'id'=>'content'
     ],
     'clientOptions'=>[
         'inlineMode'=> false,
