@@ -6,13 +6,13 @@ The preferred way to install this extension is through [composer](http://getcomp
 Either run
 
 ```
-php composer.phar require --prefer-dist dungphanxuan/yii2-froalaeditor "*"
+php composer.phar require --prefer-dist froala/yii2-froala-editor "*"
 ```
 
 or add
 
 ```
-"dungphanxuan/yii2-froalaeditor": "dev-master"
+"froala/yii2-froala-editor": "master"
 ```
 
 to the require section of your `composer.json` file.
