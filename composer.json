@@ -19,11 +19,11 @@
     "authors": [
         {
             "name": "dungphanxuan",
-            "email": "dungphanxuan@vccorp.vn",
+            "email": "dungphanxuan@vccorp.vn"
         },
         {
             "name": "Stefan Neculai",
-            "email": "stefan@froala.com",
+            "email": "stefan@froala.com"
         }
     ],
     "require": {
