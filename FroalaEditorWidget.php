@@ -95,11 +95,44 @@ class FroalaEditorWidget extends InputWidget
         // KindEditor optional parameters
         $params = [
             'inlineMode',
+            'countCharacters',
+            'alwaysVisible',
+            'initOnClick',
+            'editInPopup',
+            'toolbarFixed',
+            'paragraphy',
+            'plainPaste',
+            'placeholder',
+            'maxCharacters',
+            'minHeight',
+            'maxHeight',
+            'direction',
+            'colors',
+            'colorsStep',
+            'shortcuts',
+            'shortcutsAvailable',
+            'tabSpaces',
+            'inlineStyles',
+            'imageUploadParam',
+            'imageUploadURL',
+            'fileUploadParam',
+            'fileUploadParams',
+            'fileUploadURL',
+            'preloaderSrc',
+            'imagesLoadURL',
+            'imagesLoadParams',
+            'imageDeleteParams',
+            'saveRequestType',
+            'saveParams',
+            'saveURL',
+            'autosave',
+            'buttons',
+            'height',
             'theme',
             'language',
         ];
         $options = [];
-        $options['height'] = '180px';
+        $options['height'] = '80px';
         $options['them'] = 'dark';
         $options['language'] = 'en_us';
         foreach ($params as $key) {

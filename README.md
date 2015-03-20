@@ -28,3 +28,61 @@ We use GitHub Issues as our official bug tracker. We strive to keep this a clean
 * We are trying to fix all issues ASAP. This means a lot of work and all we are asking is for you to be polite and use appropriate language.
 * DO NOT SPAM! We are reading every single issue opened. Please do not open 2 different issues for the same thing.
 * For feature requests, tech support and general discussion, don't use GitHub Issues. See [http://editor.froala.com/contact](htp://editor.froala.com/contact) for the appropriate channels.
+
+
+Installation
+------------
+
+The preferred way to install this extension is through [composer](http://getcomposer.org/download/).
+
+Either run
+
+```
+php composer.phar require --prefer-dist dungphanxuan/yii2-froalaeditor "*"
+```
+
+or add
+
+```
+"dungphanxuan/yii2-froalaeditor": "dev-master"
+```
+
+to the require section of your `composer.json` file.
+
+
+Usage
+-----
+
+Once the extension is installed, simply use it in your code by  :
+
+```php
+<?php echo dungphanxuan\froalaeditor\FroalaEditorWidget::widget([
+    'name' => 'myedit',
+    'options'=>[// html attributes
+        'id'=>'myedit'
+    ],
+    'clientOptions'=>[
+        'inlineMode'=> false,
+        'theme' =>'royal',//optional: dark, red, gray, royal
+        'language'=>'en_us' // optional: ar, bs, cs, da, de, en_ca, en_gb, en_us ...
+    ]
+]);; ?>
+```
+
+or use with a model:
+
+```php
+<?php echo dungphanxuan\froalaeditor\FroalaEditorWidget::widget([
+    'model' => $model,
+    'options'=>[// html attributes
+        'id'=>'myedit'
+    ],
+    'clientOptions'=>[
+        'inlineMode'=> false,
+        'theme' =>'royal',//optional: dark, red, gray, royal
+        'language'=>'en_us' // optional: ar, bs, cs, da, de, en_ca, en_gb, en_us ...
+    ]
+]);; ?>
+```
+
+For full details on usage, see the [documentation](https://editor.froala.com/docs).
