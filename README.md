@@ -12,7 +12,7 @@ php composer.phar require --prefer-dist froala/yii2-froala-editor "*"
 or add
 
 ```
-"froala/yii2-froala-editor": "master"
+"froala/yii2-froala-editor": "dev-master"
 ```
 
 to the require section of your `composer.json` file.
