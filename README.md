@@ -24,13 +24,13 @@ Usage
 Once the extension is installed, simply use it in your code by  :
 
 ```php
-<?php echo dungphanxuan\froalaeditor\FroalaEditorWidget::widget([
+<?php echo froala\editor\FroalaEditorWidget::widget([
     'name' => 'content',
     'options'=>[// html attributes
         'id'=>'content'
     ],
     'clientOptions'=>[
-        'inlineMode'=> false,
+        'toolbarInline'=> false,
         'theme' =>'royal',//optional: dark, red, gray, royal
         'language'=>'en_us' // optional: ar, bs, cs, da, de, en_ca, en_gb, en_us ...
     ]
@@ -40,14 +40,14 @@ Once the extension is installed, simply use it in your code by  :
 or use with a model:
 
 ```php
-<?php echo dungphanxuan\froalaeditor\FroalaEditorWidget::widget([
+<?php echo froala\editor\FroalaEditorWidget::widget([
     'model' => $model,
     'attribute' => 'content',
     'options'=>[// html attributes
         'id'=>'content'
     ],
     'clientOptions'=>[
-        'inlineMode'=> false,
+        'toolbarInline'=> false,
         'theme' =>'royal',//optional: dark, red, gray, royal
         'language'=>'en_us' // optional: ar, bs, cs, da, de, en_ca, en_gb, en_us ...
     ]
@@ -59,4 +59,4 @@ For full details on usage, see the [documentation](https://froala.com/wysiwyg-ed
 License
 ----
 
-This package is available under MIT License. However, Froala editor requires purchasing a license from http://editor.froala.com/pricing.
+This package is available under MIT License. However, Froala editor requires purchasing a license from https://www.froala.com/wysiwyg-editor/pricing.
