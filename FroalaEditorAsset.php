@@ -1,12 +1,12 @@
 <?php
 
-namespace froala\editor;
+namespace froala\froalaeditor;
 
 use yii\web\AssetBundle;
 
 class FroalaEditorAsset extends AssetBundle
 {
-    public $sourcePath = '@froala/editor/assets';
+    public $sourcePath = '@bower/froala-wysiwyg-editor';
     public $js = [
         'js/froala_editor.min.js',
         'js/plugins/align.min.js',
