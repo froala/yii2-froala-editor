@@ -32,7 +32,7 @@ Once the extension is installed, simply use it in your code by  :
     'clientOptions'=>[
         'toolbarInline'=> false,
         'theme' =>'royal',//optional: dark, red, gray, royal
-        'language'=>'en_us' // optional: ar, bs, cs, da, de, en_ca, en_gb, en_us ...
+        'language'=>'en_gb' // optional: ar, bs, cs, da, de, en_ca, en_gb, en_us ...
     ]
 ]);; ?>
 ```
@@ -49,7 +49,7 @@ or use with a model:
     'clientOptions'=>[
         'toolbarInline'=> false,
         'theme' =>'royal',//optional: dark, red, gray, royal
-        'language'=>'en_us' // optional: ar, bs, cs, da, de, en_ca, en_gb, en_us ...
+        'language'=>'en_gb' // optional: ar, bs, cs, da, de, en_ca, en_gb, en_us ...
     ]
 ]);; ?>
 ```

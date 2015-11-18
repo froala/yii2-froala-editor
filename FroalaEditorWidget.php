@@ -58,8 +58,8 @@ class FroalaEditorWidget extends InputWidget
             $view->registerCssFile($asset->baseUrl . "/css/themes/{$themeType}.css", ['depends' => '\froala\froalaeditor\FroalaEditorAsset']);
         }
         //language
-        $langType = isset($this->clientOptions['language']) ? $this->clientOptions['language'] : 'en_us';
-        if ($langType != 'es_us') {
+        $langType = isset($this->clientOptions['language']) ? $this->clientOptions['language'] : 'en_gb';
+        if ($langType != 'es_gb') {
             $view->registerJsFile($asset->baseUrl . "/js/languages/{$langType}.js", ['depends' => '\froala\froalaeditor\FroalaEditorAsset']);
         }
 
@@ -240,7 +240,7 @@ class FroalaEditorWidget extends InputWidget
         $options = [];
         $options['height'] = '80px';
         $options['theme'] = 'dark';
-        $options['language'] = 'en_us';
+        $options['language'] = 'en_gb';
         foreach ($params as $key) {
             if (isset($this->clientOptions[$key])) {
                 $options[$key] = $this->clientOptions[$key];
