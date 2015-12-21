@@ -24,7 +24,7 @@ Usage
 Once the extension is installed, simply use it in your code by  :
 
 ```php
-<?php echo froala\editor\FroalaEditorWidget::widget([
+<?php echo froala\froalaeditor\FroalaEditorWidget::widget([
     'name' => 'content',
     'options'=>[// html attributes
         'id'=>'content'
@@ -40,7 +40,7 @@ Once the extension is installed, simply use it in your code by  :
 or use with a model:
 
 ```php
-<?php echo froala\editor\FroalaEditorWidget::widget([
+<?php echo froala\froalaeditor\FroalaEditorWidget::widget([
     'model' => $model,
     'attribute' => 'content',
     'options'=>[// html attributes
