@@ -28,6 +28,7 @@ class FroalaEditorAsset extends AssetBundle
         'js/plugins/lists.min.js',
         'js/plugins/paragraph_format.min.js',
         'js/plugins/paragraph_style.min.js',
+        'js/plugins/quick_insert.min.js',
         'js/plugins/quote.min.js',
         'js/plugins/save.min.js',
         'js/plugins/table.min.js',
@@ -46,6 +47,7 @@ class FroalaEditorAsset extends AssetBundle
         'css/plugins/image_manager.min.css',
         'css/plugins/image.min.css',
         'css/plugins/line_breaker.min.css',
+        'css/plugins/quick_insert.min.css',
         'css/plugins/table.min.css',
         'css/plugins/video.min.css'
     ];
