@@ -29,7 +29,8 @@
     ],
     "require": {
         "yiisoft/yii2": "*",
-        "bower-asset/froala-wysiwyg-editor": "2.2.2"
+        "bower-asset/froala-wysiwyg-editor": "2.2.2",
+        "rmrevin/yii2-fontawesome": "*"
     },
     "autoload": {
         "psr-4": {

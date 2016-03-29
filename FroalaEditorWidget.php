@@ -5,12 +5,23 @@ namespace froala\froalaeditor;
 use Yii;
 use yii\helpers\Html;
 use yii\helpers\Json;
-use yii\web\JsExpression;
 use yii\widgets\InputWidget;
 
 class FroalaEditorWidget extends InputWidget
 {
     const PLUGIN_NAME = 'FroalaEditor';
+
+    /**
+     * FroalaEditor Plugins
+     * @var array
+     */
+    public $clientPlugins;
+
+    /**
+     * Exclude listed plugins
+     * @var array
+     */
+    public $excludedPlugins;
 
     /**
      * FroalaEditor Options
@@ -43,6 +54,7 @@ class FroalaEditorWidget extends InputWidget
         }
         $this->registerClientScript();
     }
+
     /**
      * register client scripts(css, javascript)
      */
@@ -51,7 +63,10 @@ class FroalaEditorWidget extends InputWidget
         $view = $this->getView();
         $this->initClientOptions();
 
+        FroalaEditorAsset::$clientPlugins = $this->clientPlugins;
+        FroalaEditorAsset::$excludedPlugins = $this->excludedPlugins;
         $asset = FroalaEditorAsset::register($view);
+
         //theme
         $themeType = isset($this->clientOptions['theme']) ? $this->clientOptions['theme'] : 'default';
         if ($themeType != 'default') {
@@ -66,27 +81,10 @@ class FroalaEditorWidget extends InputWidget
         $options = empty($this->options) ? '' : Json::encode($this->options);
         $id = $this->options['id'];
 
-        $this->updateAsset();
-        $view ->registerJsFile('http://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.0/jquery.min.js');
-        $view ->registerCssFile('http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css');
-        $varName = self::PLUGIN_NAME . '_' . str_replace('-', '_', $id);
-        $js = "
-         $('#".$id ."').froalaEditor(
-             " . Json::encode($this->clientOptions) . "
-         );
-        ";
-        $view->registerJs($js);
+        $jsOptions = Json::encode($this->clientOptions);
+        $view->registerJs("\$('#$id').froalaEditor($jsOptions);");
     }
-    /*
-     *
-     * */
-    public function updateAsset(){
-//Replace jquery 2
-        Yii::$app->assetManager->bundles['yii\web\JqueryAsset'] = [
-            'sourcePath' => null,
-            'js' => ['jquery.js' => 'http://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.0/jquery.min.js'],
-        ];
-    }
+
     /**
      * client options init
      */
