@@ -64,7 +64,7 @@ class FroalaEditorAsset extends AssetBundle
     public function init()
     {
         $this->froalaBowerPath = $this->froalaBowerPath ?: \Yii::getAlias('@bower/froala-wysiwyg-editor');
-        if (static::$clientPlugins) {
+        if (is_array(static::$clientPlugins)) {
             if (ArrayHelper::isIndexed(static::$clientPlugins, true)) {
                 // sequential array = list of plugins to be included
                 // use default configurations for every plugin
