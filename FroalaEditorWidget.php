@@ -233,7 +233,8 @@ class FroalaEditorWidget extends InputWidget
             'videoSizeButtons',
             'videoTextNear',
             'width',
-            'zIndex'
+            'zIndex',
+            'key'
         ];
         $options = [];
         $options['height'] = '80px';
