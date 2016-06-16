@@ -28,33 +28,6 @@ class FroalaEditorAsset extends AssetBundle
         '\yii\web\JqueryAsset',
         '\rmrevin\yii\fontawesome\AssetBundle',
     ];
-    /**
-     * @var $clientPlugins array leave empty to load all plugins
-     * <pre>sample input:
-     * [
-     *      //specify only needed forala plugins (local files)
-     *      'url',
-     *      'align',
-     *      'char_counter',
-     *       ...
-     *      //override default files for a specific plugin
-     *      'table' => [
-     *              'css' => '<new css file url>'
-     *          ],
-     *      //include custom plugin
-     *      'my_plugin' => [
-     *              'js' => '<js file url>' // required
-     *              'css' => '<css file url>' // optional
-     *          ],
-     *      ...
-     * ]
-     */
-    static public $clientPlugins;
-
-    /**
-     * @var $excludedPlugins array list of plugin names to be excluded
-     */
-    static public $excludedPlugins;
 
     /**
      * @var $froalaBowerPath string path to library folder 'froala-wysiwyg-editor'
@@ -64,59 +37,66 @@ class FroalaEditorAsset extends AssetBundle
     public function init()
     {
         $this->froalaBowerPath = $this->froalaBowerPath ?: \Yii::getAlias('@bower/froala-wysiwyg-editor');
-        if (is_array(static::$clientPlugins)) {
-            if (ArrayHelper::isIndexed(static::$clientPlugins, true)) {
+        parent::init();
+    }
+
+    public function registerClientPlugins($clientPlugins, $excludedPlugins)
+    {
+        if (is_array($clientPlugins)) {
+            if (ArrayHelper::isIndexed($clientPlugins, true)) {
                 // sequential array = list of plugins to be included
                 // use default configurations for every plugin
-                $this->registerPlugins(static::$clientPlugins);
+                $this->registerPlugins($clientPlugins);
             } else {
                 // associative array = custom plugins and options included
-                foreach (static::$clientPlugins as $key => $value) {
+                foreach ($clientPlugins as $key => $value) {
                     if (is_numeric($key)) {
                         $pluginName = $value;
-                        if (!$this->isPluginExcluded($pluginName)) {
+                        if (!$this->isPluginExcluded($pluginName, $excludedPlugins)) {
                             $this->registerPlugin($pluginName);
                         }
                     } else {
                         $pluginName = $key;
-                        if (!$this->isPluginExcluded($pluginName)) {
+                        if (!$this->isPluginExcluded($pluginName, $excludedPlugins)) {
                             $pluginOptions = $value;
                             $issetJs = isset($pluginOptions['js']);
                             $issetCss = isset($pluginOptions['css']);
                             if ($issetJs) {
-                                $this->js[] = $pluginOptions['js'];
+                                $this->addJs($pluginOptions['js']);
                             } else {
-                                $jsFile = "js/plugins/$pluginName.min.js";
-                                if (is_file($this->froalaBowerPath . '/' . $jsFile)) {
-                                    $this->js[] = $jsFile;
+                                if ($this->isPluginJsFileExist($pluginName)) {
+                                    $this->addJs($this->getDefaultJsUrl($pluginName));
                                 } else {
                                     throw new Exception("you must set 'js' [and 'css'] for plugin '$pluginName'");
                                 }
                             }
                             if ($issetCss) {
-                                $this->css[] = $pluginOptions['css'];
+                                $this->addCss($pluginOptions['css']);
+                            } else {
+                                if ($this->isPluginCssFileExist($pluginName)) {
+                                    $this->addCss($this->getDefaultCssUrl($pluginName));
+                                }
                             }
                         }
                     }
                 }
             }
         } else {
-            $this->registerPlugins(array_diff($this->froalaPlugins, static::$excludedPlugins ?: []), false, true);
+            $this->registerPlugins(array_diff($this->froalaPlugins, $excludedPlugins ?: []), false, true);
         }
-        parent::init();
     }
 
     public function registerPlugin($pluginName, $checkJs = true, $checkCss = true)
     {
         $jsFile = "js/plugins/$pluginName.min.js";
         if ($checkJs || $this->isPluginJsFileExist($pluginName)) {
-            $this->js[] = $jsFile;
+            $this->addJs($jsFile);
             $cssFile = "css/plugins/$pluginName.min.css";
             if (!$checkCss || $this->isPluginCssFileExist($pluginName)) {
-                $this->css[] = $cssFile;
+                $this->addCss($cssFile);
             }
         } else {
-            throw new Exception("plugin '$pluginName' is not supported, if you trying to set custom plugin, please set 'js' and 'css' for your plugin");
+            throw new Exception("plugin '$pluginName' is not supported, if you trying to set custom plugin, please set 'js' and 'css' options for your plugin");
         }
     }
 
@@ -129,16 +109,36 @@ class FroalaEditorAsset extends AssetBundle
 
     public function isPluginJsFileExist($pluginName)
     {
-        return is_file("$this->froalaBowerPath/js/plugins/$pluginName.min.js");
+        return is_file($this->froalaBowerPath . '/' . $this->getDefaultJsUrl($pluginName));
     }
 
     public function isPluginCssFileExist($pluginName)
     {
-        return is_file("$this->froalaBowerPath/css/plugins/$pluginName.min.css");
+        return is_file($this->froalaBowerPath . '/' . $this->getDefaultCssUrl($pluginName));
     }
 
-    private function isPluginExcluded($pluginName)
+    public function isPluginExcluded($pluginName, $excludedPlugins)
     {
-        return in_array($pluginName, static::$excludedPlugins);
+        return in_array($pluginName, $excludedPlugins);
+    }
+
+    public function addJs($jsFile)
+    {
+        $this->js[] = $jsFile;
+    }
+
+    public function addCss($cssFile)
+    {
+        $this->css[] = $cssFile;
+    }
+
+    public function getDefaultCssUrl($pluginName)
+    {
+        return "css/plugins/$pluginName.min.css";
+    }
+
+    private function getDefaultJsUrl($pluginName)
+    {
+        return "js/plugins/$pluginName.min.js";
     }
 }
