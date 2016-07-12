@@ -160,6 +160,7 @@ class FroalaEditorWidget extends InputWidget
             'htmlSimpleAmpersand',
             'iframe',
             'iframeStyle',
+            'iframeStyleFiles',
             'imageAllowedTypes',
             'imageAltButtons',
             'imageDefaultAlign',
