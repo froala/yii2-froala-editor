@@ -100,6 +100,12 @@ class FroalaEditorWidget extends InputWidget
         } else {
             $pluginsEnabled = array_diff($this->clientPlugins, $this->excludedPlugins ?: []);
         }
+        if(!empty($pluginsEnabled)){
+            foreach($pluginsEnabled as $key =>$item){
+                $pluginsEnabled[$key] = lcfirst (yii\helpers\Inflector::camelize($item));
+            }
+        }
+
         $jsOptions = array_merge($this->clientOptions, $pluginsEnabled ? ['pluginsEnabled' => $pluginsEnabled] : []);
         $jsOptions = Json::encode($jsOptions);
 
@@ -154,6 +160,7 @@ class FroalaEditorWidget extends InputWidget
             'htmlSimpleAmpersand',
             'iframe',
             'iframeStyle',
+            'iframeStyleFiles',
             'imageAllowedTypes',
             'imageAltButtons',
             'imageDefaultAlign',
