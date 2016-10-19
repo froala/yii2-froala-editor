@@ -1,5 +1,7 @@
-Installation
-------------
+# Yii Framework Froala WYSIWYG HTML Editor
+>Yii 2 widget for Froala Wysiwyg editor.
+
+## Installation
 
 The preferred way to install this extension is through [composer](http://getcomposer.org/download/).
 
@@ -18,8 +20,7 @@ or add
 to the require section of your `composer.json` file.
 
 
-Usage
------
+## Usage
 
 Once the extension is installed, simply use it in your code by  :
 
@@ -56,7 +57,6 @@ or use with a model:
 
 For full details on usage, see the [documentation](https://froala.com/wysiwyg-editor/docs).
 
-License
-----
+## License
 
 This package is available under MIT License. However, Froala editor requires purchasing a license from https://www.froala.com/wysiwyg-editor/pricing.
