@@ -62,7 +62,13 @@ class FroalaEditorAsset extends AssetBundle
                             $issetJs = isset($pluginOptions['js']);
                             $issetCss = isset($pluginOptions['css']);
                             if ($issetJs) {
-                                $this->addJs($pluginOptions['js']);
+                                if (is_array($pluginOptions['js'])) {
+                                    foreach ($pluginOptions['js'] as $_js) {
+                                        $this->addJs($_js);
+                                    }
+                                } else {
+                                    $this->addJs($pluginOptions['js']);
+                                }
                             } else {
                                 if ($this->isPluginJsFileExist($pluginName)) {
                                     $this->addJs($this->getDefaultJsUrl($pluginName));
@@ -119,7 +125,7 @@ class FroalaEditorAsset extends AssetBundle
 
     public function isPluginExcluded($pluginName, $excludedPlugins)
     {
-        return in_array($pluginName, $excludedPlugins);
+        return in_array($pluginName, $excludedPlugins ?: []);
     }
 
     public function addJs($jsFile)

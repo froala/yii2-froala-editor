@@ -2,7 +2,6 @@
 
 namespace froala\froalaeditor;
 
-use yii;
 use yii\helpers\Html;
 use yii\helpers\Json;
 use yii\widgets\InputWidget;
@@ -98,6 +97,13 @@ class FroalaEditorWidget extends InputWidget
         if (empty($this->clientPlugins)) {
             $pluginsEnabled = false;
         } else {
+            if (is_array($this->clientPlugins)) {
+                foreach ($this->clientPlugins as $key => $value) {
+                    if (is_array($value)) {
+                        unset($this->clientPlugins[$key]);
+                    }
+                }
+            }
             $pluginsEnabled = array_diff($this->clientPlugins, $this->excludedPlugins ?: []);
         }
         $jsOptions = array_merge($this->clientOptions, $pluginsEnabled ? ['pluginsEnabled' => $pluginsEnabled] : []);
