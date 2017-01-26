@@ -14,7 +14,8 @@ class FroalaEditorAsset extends AssetBundle
         'draggable', 'emoticons', 'entities', 'file', 'font_family',
         'font_size', 'fullscreen', 'image', 'image_manager', 'inline_style',
         'line_breaker', 'link', 'lists', 'paragraph_format', 'paragraph_style',
-        'quick_insert', 'quote', 'save', 'table', 'url', 'video',
+        'quick_insert', 'quote', 'save', 'table', 'url', 'video', 'help', 'print',
+        'special_characters'
     ];
     public $js = [
         'js/froala_editor.min.js',
