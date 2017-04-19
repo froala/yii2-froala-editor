@@ -79,7 +79,6 @@ class FroalaEditorWidget extends InputWidget
     public function registerClientScript()
     {
         $view = $this->getView();
-        $this->initClientOptions();
         $asset = FroalaEditorAsset::register($view);
         $asset->registerClientPlugins($this->clientPlugins, $this->excludedPlugins);
 
