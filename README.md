@@ -8,13 +8,13 @@ The preferred way to install this extension is through [composer](http://getcomp
 Either run
 
 ```
-php composer.phar require --prefer-dist froala/yii2-froala-editor "*"
+php composer.phar require --prefer-dist froala/yii2-froala-editor
 ```
 
 or add
 
 ```
-"froala/yii2-froala-editor": "dev-master"
+"froala/yii2-froala-editor": "^2.6.0"
 ```
 
 to the require section of your `composer.json` file.
@@ -27,15 +27,16 @@ Once the extension is installed, simply use it in your code by  :
 ```php
 <?php echo froala\froalaeditor\FroalaEditorWidget::widget([
     'name' => 'content',
-    'options'=>[// html attributes
+    'options' => [
+        // html attributes
         'id'=>'content'
     ],
-    'clientOptions'=>[
+    'clientOptions' => [
         'toolbarInline'=> false,
-        'theme' =>'royal',//optional: dark, red, gray, royal
+        'theme' =>'royal', //optional: dark, red, gray, royal
         'language'=>'en_gb' // optional: ar, bs, cs, da, de, en_ca, en_gb, en_us ...
     ]
-]);; ?>
+]); ?>
 ```
 
 or use with a model:
@@ -44,15 +45,16 @@ or use with a model:
 <?php echo froala\froalaeditor\FroalaEditorWidget::widget([
     'model' => $model,
     'attribute' => 'content',
-    'options'=>[// html attributes
+    'options' => [
+        // html attributes
         'id'=>'content'
     ],
-    'clientOptions'=>[
-        'toolbarInline'=> false,
-        'theme' =>'royal',//optional: dark, red, gray, royal
-        'language'=>'en_gb' // optional: ar, bs, cs, da, de, en_ca, en_gb, en_us ...
+    'clientOptions' => [
+        'toolbarInline' => false,
+        'theme' => 'royal', //optional: dark, red, gray, royal
+        'language' => 'en_gb' // optional: ar, bs, cs, da, de, en_ca, en_gb, en_us ...
     ]
-]);; ?>
+]); ?>
 ```
 
 ## Upload example
@@ -76,12 +78,13 @@ public function actionUpload() {
     }
 
     // Get file link
-    $res = array (
-        'link'    => $web_path . '/uploads/' . $model->file->baseName . '.' . $model->file->extension,
-    );
+    $res = [
+        'link' => $web_path . '/uploads/' . $model->file->baseName . '.' . $model->file->extension,
+    ];
 
     // Response data
-    return json_encode($res);
+    Yii::$app->response->format = Yii::$app->response->format = Response::FORMAT_JSON;
+    return $res;
 }
 ```
 
@@ -122,11 +125,11 @@ For the view:
     'clientOptions' => [
         'toolbarInline'=> false,
         'height' => 200,
-        'theme' =>'royal',//optional: dark, red, gray, royal
-        'language'=>'en_gb' ,
+        'theme' => 'royal',//optional: dark, red, gray, royal
+        'language' => 'en_gb' ,
         'toolbarButtons' => ['fullscreen', 'bold', 'italic', 'underline', '|', 'paragraphFormat', 'insertImage'],
-        'imageUploadParam'=> 'file',
-        'imageUploadURL'=> \yii\helpers\Url::to(['site/upload/'])
+        'imageUploadParam' => 'file',
+        'imageUploadURL' => \yii\helpers\Url::to(['site/upload/'])
     ],
     'clientPlugins'=> ['fullscreen', 'paragraph_format', 'image']
 ]); ?>

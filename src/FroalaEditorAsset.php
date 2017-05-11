@@ -6,9 +6,43 @@ use yii\base\Exception;
 use yii\helpers\ArrayHelper;
 use yii\web\AssetBundle;
 
+/**
+ * Froala Editor asset
+ */
 class FroalaEditorAsset extends AssetBundle
 {
-    public $sourcePath = '@bower/froala-wysiwyg-editor';
+    /**
+     * @var string
+     */
+    public $sourcePath = '@vendor/froala/wysiwyg-editor';
+
+    /**
+     * @var array
+     */
+    public $js = [
+        'js/froala_editor.min.js',
+    ];
+
+    /**
+     * @var array
+     */
+    public $css = [
+        'css/froala_editor.min.css',
+        'css/froala_style.min.css',
+    ];
+
+    /**
+     * @var array
+     */
+    public $depends = [
+        // use depends instead of direct CDNs
+        '\yii\web\JqueryAsset',
+        '\rmrevin\yii\fontawesome\AssetBundle',
+    ];
+
+    /**
+     * @var array
+     */
     public $froalaPlugins = [
         'align', 'char_counter', 'code_beautifier', 'code_view', 'colors',
         'draggable', 'emoticons', 'entities', 'file', 'font_family',
@@ -17,30 +51,12 @@ class FroalaEditorAsset extends AssetBundle
         'quick_insert', 'quote', 'save', 'table', 'url', 'video', 'help', 'print',
         'special_characters', 'word_paste'
     ];
-    public $js = [
-        'js/froala_editor.min.js',
-    ];
-    public $css = [
-        'css/froala_editor.min.css',
-        'css/froala_style.min.css',
-    ];
-    public $depends = [
-        // use depends instead of direct CDNs
-        '\yii\web\JqueryAsset',
-        '\rmrevin\yii\fontawesome\AssetBundle',
-    ];
 
     /**
-     * @var $froalaBowerPath string path to library folder 'froala-wysiwyg-editor'
+     * @param $clientPlugins
+     * @param $excludedPlugins
+     * @throws Exception
      */
-    public $froalaBowerPath;
-
-    public function init()
-    {
-        $this->froalaBowerPath = $this->froalaBowerPath ?: \Yii::getAlias('@bower/froala-wysiwyg-editor');
-        parent::init();
-    }
-
     public function registerClientPlugins($clientPlugins, $excludedPlugins)
     {
         if (is_array($clientPlugins)) {
@@ -87,6 +103,12 @@ class FroalaEditorAsset extends AssetBundle
         }
     }
 
+    /**
+     * @param $pluginName
+     * @param bool $checkJs
+     * @param bool $checkCss
+     * @throws Exception
+     */
     public function registerPlugin($pluginName, $checkJs = true, $checkCss = true)
     {
         $jsFile = "js/plugins/$pluginName.min.js";
@@ -101,6 +123,11 @@ class FroalaEditorAsset extends AssetBundle
         }
     }
 
+    /**
+     * @param array $pluginsArray
+     * @param bool $checkJs
+     * @param bool $checkCss
+     */
     public function registerPlugins(array $pluginsArray, $checkJs = true, $checkCss = true)
     {
         foreach ($pluginsArray as $pluginName) {
@@ -108,38 +135,65 @@ class FroalaEditorAsset extends AssetBundle
         }
     }
 
+    /**
+     * @param $pluginName
+     * @return bool
+     */
     public function isPluginJsFileExist($pluginName)
     {
-        return is_file($this->froalaBowerPath . '/' . $this->getDefaultJsUrl($pluginName));
+        return is_file($this->sourcePath . '/' . $this->getDefaultJsUrl($pluginName));
     }
 
+    /**
+     * @param $pluginName
+     * @return bool
+     */
     public function isPluginCssFileExist($pluginName)
     {
-        return is_file($this->froalaBowerPath . '/' . $this->getDefaultCssUrl($pluginName));
+        return is_file($this->sourcePath . '/' . $this->getDefaultCssUrl($pluginName));
     }
 
+    /**
+     * @param $pluginName
+     * @param $excludedPlugins
+     * @return bool
+     */
     public function isPluginExcluded($pluginName, $excludedPlugins)
     {
-        return in_array($pluginName, $excludedPlugins);
+        return in_array($pluginName, $excludedPlugins, true);
     }
 
+    /**
+     * @param $jsFile
+     */
     public function addJs($jsFile)
     {
         $this->js[] = $jsFile;
     }
 
+    /**
+     * @param $cssFile
+     */
     public function addCss($cssFile)
     {
         $this->css[] = $cssFile;
     }
 
+    /**
+     * @param $pluginName
+     * @return string
+     */
     public function getDefaultCssUrl($pluginName)
     {
-        return "css/plugins/$pluginName.min.css";
+        return "css/plugins/{$pluginName}.min.css";
     }
 
+    /**
+     * @param $pluginName
+     * @return string
+     */
     private function getDefaultJsUrl($pluginName)
     {
-        return "js/plugins/$pluginName.min.js";
+        return "js/plugins/{$pluginName}.min.js";
     }
 }
