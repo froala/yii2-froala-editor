@@ -110,4 +110,14 @@ class FroalaEditorWidget extends InputWidget
 
         $view->registerJs("\$('#$id').froalaEditor($jsOptions);");
     }
+
+	public static function widget($config = [])
+	{
+		if (!isset($config['clientOptions']['imageUploadURL']))
+		{
+			$config['clientOptions']['imageUploadURL'] = \yii\helpers\Url::to(['froala/default/upload']);
+		}
+
+		return parent::widget($config);
+	}
 }
