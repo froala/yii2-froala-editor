@@ -29,7 +29,7 @@
     ],
     "require": {
         "yiisoft/yii2": "^2.0",
-        "rmrevin/yii2-fontawesome": "*",
+        "rmrevin/yii2-fontawesome": "^2.0",
         "froala/wysiwyg-editor-php-sdk": "*"
     },
     "autoload": {
