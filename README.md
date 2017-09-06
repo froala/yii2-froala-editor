@@ -15,6 +15,7 @@ Either run
 ```
 php composer.phar require --prefer-dist froala/yii2-froala-editor
 php composer.phar require --prefer-dist froala/wysiwyg-editor-php-sdk
+php composer.phar require --prefer-dist bower-asset/froala-wysiwyg-editor
 
 ```
 
@@ -22,7 +23,8 @@ or add
 
 ```
 "froala/yii2-froala-editor": "^2.6.0",
-"froala/wysiwyg-editor-php-sdk" : "*"
+"froala/wysiwyg-editor-php-sdk" : "*",
+"bower-asset/froala-wysiwyg-editor": "^2.6.0"
 
 ```
 
