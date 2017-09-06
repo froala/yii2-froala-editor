@@ -7,7 +7,7 @@ use yii\web\Controller;
 class DefaultController extends Controller
 {
 	// Without false it will give "Bad Request (#400) Unable to verify your data submission."
-	public $enableCsrfValidation = false;
+    public $enableCsrfValidation = false;
 
     public function actionUpload()
     {
