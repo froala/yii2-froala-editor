@@ -7,18 +7,23 @@
 
 ## Installation
 
-The preferred way to install this extension is through [composer](http://getcomposer.org/download/).
+The preferred way to install this extension is through [composer](http://getcomposer.org/download/). yii2-froala editor depends on Froala PHP SDK
+To use and Install the editor, one must install PHP SDK also.
 
 Either run
 
 ```
 php composer.phar require --prefer-dist froala/yii2-froala-editor
+php composer.phar require --prefer-dist froala/wysiwyg-editor-php-sdk
+
 ```
 
 or add
 
 ```
-"froala/yii2-froala-editor": "^2.6.0"
+"froala/yii2-froala-editor": "^2.6.0",
+"froala/wysiwyg-editor-php-sdk" : "*"
+
 ```
 
 to the require section of your `composer.json` file.
@@ -63,65 +68,19 @@ or use with a model:
 
 ## Upload example
 
-Using the basic Yii template make a new folder under /web/ called uploads.
-
-For controler: 
-
-```php
-public function actionUpload() {
-    $base_path = Yii::getAlias('@app');
-    $web_path = Yii::getAlias('@web');
-    $model = new UploadForm();
-
-    if (Yii::$app->request->isPost) {
-        $model->file = UploadedFile::getInstanceByName('file');
-
-        if ($model->validate()) {
-            $model->file->saveAs($base_path . '/web/uploads/' . $model->file->baseName . '.' . $model->file->extension);
-        }
-    }
-
-    // Get file link
-    $res = [
-        'link' => $web_path . '/uploads/' . $model->file->baseName . '.' . $model->file->extension,
-    ];
-
-    // Response data
-    Yii::$app->response->format = Yii::$app->response->format = Response::FORMAT_JSON;
-    return $res;
-}
-```
-
-For model: 
+Using the Froala PHP SDK with Froala Editor widget, the first step would be to add the configuration in web.php config file, make an entry for Froala Module
+in the Config Array.
 
 ```php
-namespace app\models;
-use yii\base\Model;
-use yii\web\UploadedFile;
-
-/**
- * UploadForm is the model behind the upload form.
- */
-class UploadForm extends Model
-{
-    /**
-     * @var UploadedFile|Null file attribute
-     */
-    public $file;
-
-    /**
-     * @return array the validation rules.
-     */
-    public function rules()
-    {
-        return [
-            [['file'], 'file']
-        ];
-    }
-}
+'modules' => [
+        'froala' => [
+            'class' => '\froala\froalaeditor\Module',
+            'uploadFolder' => '/uploads/'
+        ]
+    ],
 ```
 
-For the view:
+Make sure you have a folder called "uploads" in your web root directory,Now to use the Froala Widget on any view just use the following code in the view:
 
 ```php
 <?= \froala\froalaeditor\FroalaEditorWidget::widget([
@@ -132,8 +91,7 @@ For the view:
         'theme' => 'royal',//optional: dark, red, gray, royal
         'language' => 'en_gb' ,
         'toolbarButtons' => ['fullscreen', 'bold', 'italic', 'underline', '|', 'paragraphFormat', 'insertImage'],
-        'imageUploadParam' => 'file',
-        'imageUploadURL' => \yii\helpers\Url::to(['site/upload/'])
+        'imageUploadParam' => 'file'
     ],
     'clientPlugins'=> ['fullscreen', 'paragraph_format', 'image']
 ]); ?>
