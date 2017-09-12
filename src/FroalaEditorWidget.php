@@ -116,6 +116,7 @@ class FroalaEditorWidget extends InputWidget
 		if (!isset($config['clientOptions']['imageUploadURL']))
 		{
 			$config['clientOptions']['imageUploadURL'] = \yii\helpers\Url::to(['froala/default/upload']);
+			$config['clientOptions']['imageUploadParam'] = 'file';
 		}
 
 		return parent::widget($config);
