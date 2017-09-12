@@ -16,6 +16,7 @@ Either run
 php composer.phar require --prefer-dist froala/yii2-froala-editor
 php composer.phar require --prefer-dist froala/wysiwyg-editor-php-sdk
 php composer.phar require --prefer-dist bower-asset/froala-wysiwyg-editor
+php composer.phar require --prefer-dist froala/wysiwyg-editor
 
 ```
 
@@ -25,6 +26,7 @@ or add
 "froala/yii2-froala-editor": "^2.6.0",
 "froala/wysiwyg-editor-php-sdk" : "*",
 "bower-asset/froala-wysiwyg-editor": "^2.6.0"
+"froala/wysiwyg-editor": "^2.6.5"
 
 ```
 
@@ -93,7 +95,6 @@ Make sure you have a folder called "uploads" in your web root directory,Now to u
         'theme' => 'royal',//optional: dark, red, gray, royal
         'language' => 'en_gb' ,
         'toolbarButtons' => ['fullscreen', 'bold', 'italic', 'underline', '|', 'paragraphFormat', 'insertImage'],
-        'imageUploadParam' => 'file'
     ],
     'clientPlugins'=> ['fullscreen', 'paragraph_format', 'image']
 ]); ?>
