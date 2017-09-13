@@ -38,7 +38,7 @@ to the require section of your `composer.json` file.
 Once the extension is installed, simply use it in your code by  :
 
 ```php
-<?php echo froala\froalaeditor\FroalaEditorWidget::widget([
+<?php echo Froala\Editor\FroalaEditorWidget::widget([
     'name' => 'content',
     'options' => [
         // html attributes
@@ -55,7 +55,7 @@ Once the extension is installed, simply use it in your code by  :
 or use with a model:
 
 ```php
-<?php echo froala\froalaeditor\FroalaEditorWidget::widget([
+<?php echo Froala\Editor\FroalaEditorWidget::widget([
     'model' => $model,
     'attribute' => 'content',
     'options' => [
@@ -78,7 +78,7 @@ in the Config Array.
 ```php
 'modules' => [
         'froala' => [
-            'class' => '\froala\froalaeditor\Module',
+            'class' => '\Froala\Editor\Module',
             'uploadFolder' => '/uploads/'
         ]
     ],
@@ -87,7 +87,7 @@ in the Config Array.
 Make sure you have a folder called "uploads" in your web root directory,Now to use the Froala Widget on any view just use the following code in the view:
 
 ```php
-<?= \froala\froalaeditor\FroalaEditorWidget::widget([
+<?= \Froala\Editor\FroalaEditorWidget::widget([
     'name' => 'body',
     'clientOptions' => [
         'toolbarInline'=> false,
