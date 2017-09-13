@@ -1,6 +1,6 @@
 <?php
 
-namespace froala\froalaeditor;
+namespace Froala\Editor;
 
 use yii\base\Exception;
 use yii\helpers\ArrayHelper;
