@@ -1,6 +1,6 @@
 <?php
 
-namespace froala\froalaeditor\controllers;
+namespace Froala\Editor\controllers;
 
 use yii\web\Controller;
 

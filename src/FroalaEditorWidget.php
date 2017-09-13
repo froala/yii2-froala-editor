@@ -1,6 +1,6 @@
 <?php
 
-namespace froala\froalaeditor;
+namespace Froala\Editor;
 
 use yii;
 use yii\helpers\Html;
@@ -85,12 +85,12 @@ class FroalaEditorWidget extends InputWidget
         //theme
         $themeType = isset($this->clientOptions['theme']) ? $this->clientOptions['theme'] : 'default';
         if ($themeType != 'default') {
-            $view->registerCssFile("{$asset->baseUrl}/css/themes/{$themeType}.css", ['depends' => '\froala\froalaeditor\FroalaEditorAsset']);
+            $view->registerCssFile("{$asset->baseUrl}/css/themes/{$themeType}.css", ['depends' => '\Froala\Editor\FroalaEditorAsset']);
         }
         //language
         $langType = isset($this->clientOptions['language']) ? $this->clientOptions['language'] : 'en_gb';
         if ($langType != 'es_gb') {
-            $view->registerJsFile("{$asset->baseUrl}/js/languages/{$langType}.js", ['depends' => '\froala\froalaeditor\FroalaEditorAsset']);
+            $view->registerJsFile("{$asset->baseUrl}/js/languages/{$langType}.js", ['depends' => '\Froala\Editor\FroalaEditorAsset']);
         }
 
         $id = $this->options['id'];
