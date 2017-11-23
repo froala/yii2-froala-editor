@@ -1,6 +1,6 @@
 {
     "name": "froala/yii2-froala-editor",
-    "version": "2.7.1",
+    "version": "2.7.2",
     "description": "A beautiful jQuery WYSIWYG HTML text editor based on HTML5 technology. Cross browser, with mobile support, high performance and Retina Ready modern design.",
     "type": "yii2-extension",
     "keywords": [
@@ -29,7 +29,7 @@
     ],
     "require": {
         "yiisoft/yii2": "^2.0",
-        "froala/wysiwyg-editor": "^2.7.1",
+        "froala/wysiwyg-editor": "^2.7.2",
         "rmrevin/yii2-fontawesome": "^2.0"
     },
     "autoload": {
