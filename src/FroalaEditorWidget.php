@@ -39,7 +39,7 @@ class FroalaEditorWidget extends InputWidget
      * Remove these plugins from this list plugins, this option overrides 'clientPlugins'
      * @var array
      */
-    public $excludedPlugins;
+    public $excludedPlugins = [];
 
     /**
      * FroalaEditor Options
@@ -80,7 +80,7 @@ class FroalaEditorWidget extends InputWidget
     {
         $view = $this->getView();
         $asset = FroalaEditorAsset::register($view);
-        $asset->registerClientPlugins($this->clientPlugins, $this->excludedPlugins);
+        $plugin_names = $asset->registerClientPlugins($this->clientPlugins, $this->excludedPlugins);
 
         //theme
         $themeType = isset($this->clientOptions['theme']) ? $this->clientOptions['theme'] : 'default';
@@ -97,7 +97,7 @@ class FroalaEditorWidget extends InputWidget
         if (empty($this->clientPlugins)) {
             $pluginsEnabled = false;
         } else {
-            $pluginsEnabled = array_diff($this->clientPlugins, $this->excludedPlugins ?: []);
+            $pluginsEnabled = array_diff($plugin_names, $this->excludedPlugins ?: []);
         }
         if(!empty($pluginsEnabled)){
             foreach($pluginsEnabled as $key =>$item){
