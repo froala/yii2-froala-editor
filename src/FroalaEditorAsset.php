@@ -11,7 +11,16 @@ use yii\web\AssetBundle;
  */
 class FroalaEditorAsset extends AssetBundle
 {
-    /**
+	/**
+	 * Constants for enter pressed action
+	 *
+	 * @see https://www.froala.com/wysiwyg-editor/examples/enter
+	 */
+	const ENTER_P = 0; // default
+	const ENTER_DIV = 1;
+	const ENTER_BR = 2;
+
+	/**
      * @var string
      */
     public $sourcePath = '@vendor/froala/wysiwyg-editor';
