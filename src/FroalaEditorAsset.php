@@ -68,11 +68,13 @@ class FroalaEditorAsset extends AssetBundle
      */
     public function registerClientPlugins($clientPlugins, $excludedPlugins)
     {
+        $pluginNames = [];
         if (is_array($clientPlugins)) {
             if (ArrayHelper::isIndexed($clientPlugins, true)) {
                 // sequential array = list of plugins to be included
                 // use default configurations for every plugin
                 $this->registerPlugins($clientPlugins);
+                $pluginNames = array_values($clientPlugins);
             } else {
                 // associative array = custom plugins and options included
                 foreach ($clientPlugins as $key => $value) {
@@ -105,11 +107,13 @@ class FroalaEditorAsset extends AssetBundle
                             }
                         }
                     }
+                    $pluginNames[] = $pluginName;
                 }
             }
         } else {
             $this->registerPlugins(array_diff($this->froalaPlugins, $excludedPlugins ?: []), false, true);
         }
+        return $pluginNames;
     }
 
     /**
