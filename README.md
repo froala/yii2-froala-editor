@@ -141,6 +141,45 @@ For the view:
 
 For full details on usage, see the [documentation](https://froala.com/wysiwyg-editor/docs).
 
+## Custom Buttons Example
+
+The custom Buttons can be defined in JS files anywhere you want, in this example in /basic/assets/ folder.
+
+In the view:
+
+```php
+<?php $this->registerJsFile('/basic/assets/alert.js', ['depends' => '\Froala\Editor\FroalaEditorAsset']);?>
+
+<?= \Froala\Editor\FroalaEditorWidget::widget([
+    'name'          => 'body',
+    'clientOptions' => [
+        'toolbarInline'    => false,
+        'height'           => 200,
+        'theme'            => 'royal',//optional: dark, red, gray, royal
+        'language'         => 'en_gb',
+        'toolbarButtons'   => ['fullscreen', 'bold', 'italic', 'underline', '|', 'paragraphFormat', 'insertImage', 'alert']
+    ],
+    'clientPlugins' => ['fullscreen', 'paragraph_format', 'image']
+]); ?>
+```
+
+In /basic/assets/alert.js:
+
+```js
+$.FroalaEditor.DefineIcon('alert', {NAME: 'info'});
+$.FroalaEditor.RegisterCommand('alert', {
+        title: 'Hello',
+        focus: false,
+        undo: false,
+        refreshAfterCallback: false,
+        callback: function () {
+            alert('Hello!');
+        }
+    }
+);
+```
+
+For more details you can go to [Custom Buttons](https://www.froala.com/wysiwyg-editor/examples/custom-buttons)
 ## License
 
 This package is available under MIT License. However, Froala editor requires purchasing a license from https://www.froala.com/wysiwyg-editor/pricing.
