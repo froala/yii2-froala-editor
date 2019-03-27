@@ -166,8 +166,8 @@ In the view:
 In /basic/assets/alert.js:
 
 ```js
-$.FroalaEditor.DefineIcon('alert', {NAME: 'info'});
-$.FroalaEditor.RegisterCommand('alert', {
+FroalaEditor.DefineIcon('alert', {NAME: 'info'});
+FroalaEditor.RegisterCommand('alert', {
         title: 'Hello',
         focus: false,
         undo: false,

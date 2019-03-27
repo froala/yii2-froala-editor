@@ -43,15 +43,6 @@ class FroalaEditorAsset extends AssetBundle
     /**
      * @var array
      */
-    public $depends = [
-        // use depends instead of direct CDNs
-        '\yii\web\JqueryAsset',
-        '\rmrevin\yii\fontawesome\AssetBundle',
-    ];
-
-    /**
-     * @var array
-     */
     public $froalaPlugins = [
         'align', 'char_counter', 'code_beautifier', 'code_view', 'colors',
         'draggable', 'emoticons', 'entities', 'file', 'font_family',
