@@ -108,6 +108,6 @@ class FroalaEditorWidget extends InputWidget
         $jsOptions = array_merge($this->clientOptions, $pluginsEnabled ? ['pluginsEnabled' => $pluginsEnabled] : []);
         $jsOptions = Json::encode($jsOptions);
 
-        $view->registerJs("\$('#$id').froalaEditor($jsOptions);");
+        $view->registerJs("new FroalaEditor('#$id',$jsOptions);");
     }
 }
