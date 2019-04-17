@@ -61,6 +61,11 @@ or use with a model:
 ]); ?>
 ```
 
+add Font-awesome cdn for font-awesome plugin
+```php
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+```
+
 ## Upload example
 
 Using the basic Yii template make a new folder under /web/ called uploads.
@@ -166,8 +171,8 @@ In the view:
 In /basic/assets/alert.js:
 
 ```js
-$.FroalaEditor.DefineIcon('alert', {NAME: 'info'});
-$.FroalaEditor.RegisterCommand('alert', {
+FroalaEditor.DefineIcon('alert', {NAME: 'info'});
+FroalaEditor.RegisterCommand('alert', {
         title: 'Hello',
         focus: false,
         undo: false,
