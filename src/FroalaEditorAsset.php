@@ -102,7 +102,7 @@ class FroalaEditorAsset extends AssetBundle
                 }
             }
         } else {
-            $this->registerPlugins(array_diff($this->froalaPlugins, $excludedPlugins ?: []), false, true);
+            $this->registerPlugins(array_diff($this->froalaPlugins, $excludedPlugins ?: []), true, true);
         }
         return $pluginNames;
     }
