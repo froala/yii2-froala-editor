@@ -59,6 +59,8 @@ class FroalaEditorAsset extends AssetBundle
      */
     public function registerClientPlugins($clientPlugins, $excludedPlugins)
     {
+	// documentation uses CamelCase (e.g. fontSize), but this the js files are underscored, so convert
+        $clientPlugins = array_map(function ($plugin) { return Inflector::underscore($plugin); }, $clientPlugins);
         $pluginNames = [];
         if (is_array($clientPlugins)) {
             if (ArrayHelper::isIndexed($clientPlugins, true)) {
