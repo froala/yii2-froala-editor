@@ -6,47 +6,66 @@ use yii\base\Exception;
 use yii\helpers\ArrayHelper;
 use yii\web\AssetBundle;
 
+/**
+ * Froala Editor asset
+ */
 class FroalaEditorAsset extends AssetBundle
 {
-    public $sourcePath = '@bower/froala-wysiwyg-editor';
+	/**
+	 * Constants for enter pressed action
+	 *
+	 * @see https://www.froala.com/wysiwyg-editor/examples/enter
+	 */
+	const ENTER_P = 0; // default
+	const ENTER_DIV = 1;
+	const ENTER_BR = 2;
+
+	/**
+     * @var string
+     */
+    public $sourcePath = '@vendor/froala/wysiwyg-editor';
+
+    /**
+     * @var array
+     */
+    public $js = [
+        'js/froala_editor.min.js',
+    ];
+
+    /**
+     * @var array
+     */
+    public $css = [
+        'css/froala_editor.min.css',
+        'css/froala_style.min.css',
+    ];
+
+    /**
+     * @var array
+     */
     public $froalaPlugins = [
         'align', 'char_counter', 'code_beautifier', 'code_view', 'colors',
         'draggable', 'emoticons', 'entities', 'file', 'font_family',
         'font_size', 'fullscreen', 'image', 'image_manager', 'inline_style',
         'line_breaker', 'link', 'lists', 'paragraph_format', 'paragraph_style',
-        'quick_insert', 'quote', 'save', 'table', 'url', 'video',
-    ];
-    public $js = [
-        'js/froala_editor.min.js',
-    ];
-    public $css = [
-        'css/froala_editor.min.css',
-        'css/froala_style.min.css',
-    ];
-    public $depends = [
-        // use depends instead of direct CDNs
-        '\yii\web\JqueryAsset',
-        '\rmrevin\yii\fontawesome\AssetBundle',
+        'quick_insert', 'quote', 'save', 'table', 'url', 'video', 'help', 'print',
+        'special_characters', 'word_paste'
     ];
 
     /**
-     * @var $froalaBowerPath string path to library folder 'froala-wysiwyg-editor'
+     * @param $clientPlugins
+     * @param $excludedPlugins
+     * @throws Exception
      */
-    public $froalaBowerPath;
-
-    public function init()
-    {
-        $this->froalaBowerPath = $this->froalaBowerPath ?: \Yii::getAlias('@bower/froala-wysiwyg-editor');
-        parent::init();
-    }
-
     public function registerClientPlugins($clientPlugins, $excludedPlugins)
     {
+        $pluginNames = [];
         if (is_array($clientPlugins)) {
             if (ArrayHelper::isIndexed($clientPlugins, true)) {
                 // sequential array = list of plugins to be included
                 // use default configurations for every plugin
                 $this->registerPlugins($clientPlugins);
+                $pluginNames = array_values($clientPlugins);
             } else {
                 // associative array = custom plugins and options included
                 foreach ($clientPlugins as $key => $value) {
@@ -79,27 +98,51 @@ class FroalaEditorAsset extends AssetBundle
                             }
                         }
                     }
+                    $pluginNames[] = $pluginName;
                 }
             }
         } else {
-            $this->registerPlugins(array_diff($this->froalaPlugins, $excludedPlugins ?: []), false, true);
+            $this->registerPlugins(array_diff($this->froalaPlugins, $excludedPlugins ?: []), true, true);
         }
+        return $pluginNames;
     }
 
+    /**
+     * @param $pluginName
+     * @param bool $checkJs
+     * @param bool $checkCss
+     * @throws Exception
+     */
     public function registerPlugin($pluginName, $checkJs = true, $checkCss = true)
     {
         $jsFile = "js/plugins/$pluginName.min.js";
-        if ($checkJs || $this->isPluginJsFileExist($pluginName)) {
+        if ($checkJs && $this->isPluginJsFileExist($pluginName)) {
             $this->addJs($jsFile);
             $cssFile = "css/plugins/$pluginName.min.css";
             if (!$checkCss || $this->isPluginCssFileExist($pluginName)) {
                 $this->addCss($cssFile);
             }
         } else {
-            throw new Exception("plugin '$pluginName' is not supported, if you trying to set custom plugin, please set 'js' and 'css' options for your plugin");
+            $thirdPartyJsFile = "js/third_party/$pluginName.min.js";
+            if($checkJs && $this->isThirdPartyPluginJsFileExist($pluginName)) {
+                $this->addJs($thirdPartyJsFile);
+                $thirdPartyCssFile = "css/third_party/$pluginName.min.css";
+                if (!$checkCss || $this->isThirdPartyPluginCssFileExist($pluginName)) {
+                    $this->addCss($thirdPartyCssFile);
+                }
+            }
+            else {
+                throw new Exception("plugin '$pluginName' is not supported, if you trying to set custom plugin, please set 'js' and 'css' options for your plugin");
+            }
+            
         }
     }
 
+    /**
+     * @param array $pluginsArray
+     * @param bool $checkJs
+     * @param bool $checkCss
+     */
     public function registerPlugins(array $pluginsArray, $checkJs = true, $checkCss = true)
     {
         foreach ($pluginsArray as $pluginName) {
@@ -107,38 +150,85 @@ class FroalaEditorAsset extends AssetBundle
         }
     }
 
+    /**
+     * @param $pluginName
+     * @return bool
+     */
     public function isPluginJsFileExist($pluginName)
     {
-        return is_file($this->froalaBowerPath . '/' . $this->getDefaultJsUrl($pluginName));
+        return is_file($this->sourcePath . '/' . $this->getDefaultJsUrl($pluginName));
     }
 
+    public function isThirdPartyPluginJsFileExist($pluginName)
+    {
+        return is_file($this->sourcePath . '/' . $this->getDefaultThirdPartyJsUrl($pluginName));
+    }
+
+    /**
+     * @param $pluginName
+     * @return bool
+     */
     public function isPluginCssFileExist($pluginName)
     {
-        return is_file($this->froalaBowerPath . '/' . $this->getDefaultCssUrl($pluginName));
+        return is_file($this->sourcePath . '/' . $this->getDefaultCssUrl($pluginName));
     }
 
+    public function isThirdPartyPluginCssFileExist($pluginName)
+    {
+        return is_file($this->sourcePath . '/' . $this->getDefaultThirdPartyCssUrl($pluginName));
+    }
+
+    /**
+     * @param $pluginName
+     * @param $excludedPlugins
+     * @return bool
+     */
     public function isPluginExcluded($pluginName, $excludedPlugins)
     {
-        return in_array($pluginName, $excludedPlugins);
+        return in_array($pluginName, $excludedPlugins, true);
     }
 
+    /**
+     * @param $jsFile
+     */
     public function addJs($jsFile)
     {
         $this->js[] = $jsFile;
     }
 
+    /**
+     * @param $cssFile
+     */
     public function addCss($cssFile)
     {
         $this->css[] = $cssFile;
     }
 
+    /**
+     * @param $pluginName
+     * @return string
+     */
     public function getDefaultCssUrl($pluginName)
     {
-        return "css/plugins/$pluginName.min.css";
+        return "css/plugins/{$pluginName}.min.css";
     }
 
+    public function getDefaultThirdPartyCssUrl($pluginName)
+    {
+        return "css/third_party/{$pluginName}.min.css";
+    }
+
+    /**
+     * @param $pluginName
+     * @return string
+     */
     private function getDefaultJsUrl($pluginName)
     {
-        return "js/plugins/$pluginName.min.js";
+        return "js/plugins/{$pluginName}.min.js";
+    }
+
+    private function getDefaultThirdPartyJsUrl($pluginName)
+    {
+        return "js/third_party/{$pluginName}.min.js";
     }
 }
