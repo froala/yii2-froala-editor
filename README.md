@@ -188,7 +188,7 @@ For more details you can go to [Custom Buttons](https://www.froala.com/wysiwyg-e
 
 ## Enable third party plugins
 
-You can enable the additional plugins by adding them in the file `vendor\froala\yii2-froala-editor\FroalaEditorAsset.php`
+Enable additional plugins by including in the file `FroalaEditorAsset.php`
 
 ```
 $froalaPlugins = [
