@@ -60,6 +60,11 @@ or use with a model:
     ]
 ]); ?>
 ```
+add Font-awesome cdn for font-awesome plugin
+
+```html
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+```
 
 ## Upload example
 
@@ -180,6 +185,36 @@ $.FroalaEditor.RegisterCommand('alert', {
 ```
 
 For more details you can go to [Custom Buttons](https://www.froala.com/wysiwyg-editor/examples/custom-buttons)
+
+## Enable third party plugins
+
+Enable additional plugins by including in the file `FroalaEditorAsset.php`
+
+```
+$froalaPlugins = [
+    'align', 'char_counter', 'code_beautifier', 'code_view', 'colors',
+    'draggable', 'emoticons', 'entities', 'file', 'font_family',
+    'font_size', 'fullscreen', 'image', 'image_manager', 'inline_style',
+    'line_breaker', 'link', 'lists', 'paragraph_format', 'paragraph_style',
+    'quick_insert', 'quote', 'save', 'table', 'url', 'video', 'help', 'print',
+    'special_characters', 'word_paste', '../third_party/image_tui', '../third_party/font_awesome'
+];
+```
+OR
+
+Enable plugins by including in view file (index.php)
+
+```
+'clientPlugins' => [
+    'align', 'char_counter', 'code_beautifier', 'code_view', 'colors',
+    'draggable', 'emoticons', 'entities', 'file', 'font_family',
+    'font_size', 'fullscreen', 'image', 'image_manager', 'inline_style',
+    'line_breaker', 'link', 'lists', 'paragraph_format', 'paragraph_style',
+    'quick_insert', 'quote', 'save', 'table', 'url', 'video', 'help', 'print',
+    'special_characters', 'word_paste', '../third_party/image_tui', '../third_party/font_awesome'
+];
+```
+
 ## License
 
 This package is available under MIT License. However, Froala editor requires purchasing a license from https://www.froala.com/wysiwyg-editor/pricing.
