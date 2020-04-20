@@ -211,7 +211,8 @@ Enable plugins by including in view file (index.php)
     'font_size', 'fullscreen', 'image', 'image_manager', 'inline_style',
     'line_breaker', 'link', 'lists', 'paragraph_format', 'paragraph_style',
     'quick_insert', 'quote', 'save', 'table', 'url', 'video', 'help', 'print',
-    'special_characters', 'word_paste', '../third_party/image_tui', '../third_party/font_awesome'
+    'special_characters', 'word_paste', '../third_party/image_tui',
+    '../third_party/font_awesome', '../third_party/spell_checker', 'spell_checker'
 ];
 ```
 
