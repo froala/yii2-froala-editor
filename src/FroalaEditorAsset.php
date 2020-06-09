@@ -49,7 +49,7 @@ class FroalaEditorAsset extends AssetBundle
         'font_size', 'fullscreen', 'image', 'image_manager', 'inline_style',
         'line_breaker', 'link', 'lists', 'paragraph_format', 'paragraph_style',
         'quick_insert', 'quote', 'save', 'table', 'url', 'video', 'help', 'print',
-        'special_characters', 'word_paste'
+        'special_characters', 'word_paste','files_manager'
     ];
 
     /**
