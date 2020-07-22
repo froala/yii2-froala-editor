@@ -18,7 +18,7 @@ php composer.phar require --prefer-dist froala/yii2-froala-editor
 or add
 
 ```
-"froala/yii2-froala-editor": "^3.1.0"
+"froala/yii2-froala-editor": "^3.2.0"
 ```
 
 to the require section of your `composer.json` file.
