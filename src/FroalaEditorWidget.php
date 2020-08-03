@@ -95,7 +95,8 @@ class FroalaEditorWidget extends InputWidget
         
         // license key
         if(isset(Yii::$app->params['froala_license'])){
-        $this->clientOptions['key'] = Yii::$app->params['froala_license'];
+            $this->clientOptions['key'] = Yii::$app->params['froala_license'];
+            $this->clientOptions['attribution'] = false;
         }
 
         $id = $this->options['id'];
