@@ -30,6 +30,8 @@ class FroalaEditorAsset extends AssetBundle
      */
     public $js = [
         'js/froala_editor.min.js',
+        'js/plugins/markdown.min.js',
+        'js/plugins/track_changes.min.js',
     ];
 
     /**
@@ -38,6 +40,7 @@ class FroalaEditorAsset extends AssetBundle
     public $css = [
         'css/froala_editor.min.css',
         'css/froala_style.min.css',
+        'css/plugins/markdown.min.css',
     ];
 
     /**
@@ -49,7 +52,7 @@ class FroalaEditorAsset extends AssetBundle
         'font_size', 'fullscreen', 'image', 'image_manager', 'inline_style',
         'line_breaker', 'link', 'lists', 'paragraph_format', 'paragraph_style',
         'quick_insert', 'quote', 'save', 'table', 'url', 'video', 'help', 'print',
-        'special_characters', 'word_paste'
+        'special_characters', 'word_paste', 'markdown', 'track_changes'
     ];
 
     /**
