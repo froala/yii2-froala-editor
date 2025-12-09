@@ -1,0 +1,68 @@
+name: Auto Release on Merge
+
+on:
+  pull_request:
+    types: [closed]
+    branches:
+      - main
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+
+  create_release:
+    # Only run when PR is merged AND merge commit message contains release: yes
+    if: >
+      github.event_name == 'pull_request' &&
+      github.event.action == 'closed' &&
+      github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check merge commit message includes release:yes
+        id: check_message
+        uses: actions/github-script@v6
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const mergeSha = context.payload.pull_request.merge_commit_sha;
+
+            const commit = await github.rest.repos.getCommit({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              ref: mergeSha
+            });
+
+            const message = commit.data.commit.message;
+
+            const isRelease = /release:\s*yes/i.test(message);
+            core.setOutput("release", isRelease ? "true" : "false");
+
+      - name: Stop if merge commit has no release flag
+        if: steps.check_message.outputs.release == 'false'
+        run: |
+          echo "Merge commit does NOT contain 'release: yes'. Skipping release."
+          exit 0
+
+      - name: Checkout main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Read version from composer.json
+        id: version
+        run: |
+          VERSION=$(jq -r '.version' composer.json)
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
+
+      - name: Create GitHub Release
+        if: steps.check_message.outputs.release == 'true'
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: "v${{ env.VERSION }}"
+          release_name: "Release v${{ env.VERSION }}"
+          body: "Auto-release for version v${{ env.VERSION }}"
