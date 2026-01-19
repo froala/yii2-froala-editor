@@ -66,6 +66,13 @@ add Font-awesome cdn for font-awesome plugin
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 ```
 
+To add the license key for the whole yii2-project add this to params-local.php: 
+```php
+return [
+    'froala_license' => 'my-froala-license',
+];
+```
+
 ## Upload example
 
 Using the basic Yii template make a new folder under /web/ called uploads.

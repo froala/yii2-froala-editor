@@ -92,6 +92,12 @@ class FroalaEditorWidget extends InputWidget
         if ($langType != 'es_gb') {
             $view->registerJsFile("{$asset->baseUrl}/js/languages/{$langType}.js", ['depends' => '\froala\froalaeditor\FroalaEditorAsset']);
         }
+        
+        // license key
+        if(isset(Yii::$app->params['froala_license'])){
+            $this->clientOptions['key'] = Yii::$app->params['froala_license'];
+            $this->clientOptions['attribution'] = false;
+        }
 
         $id = $this->options['id'];
         if (empty($this->clientPlugins)) {
