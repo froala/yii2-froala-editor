@@ -87,7 +87,7 @@ jobs:
       # --------------------------------------------
       - name: Update composer.json
         run: |
-          jq ".version = \"$VERSION\"" composer.json > tmp.json
+          jq --arg VERSION "$VERSION" '.version = $VERSION | .require["froala/wysiwyg-editor"] = $VERSION' composer.json > tmp.json
           mv tmp.json composer.json
 
       # --------------------------------------------
