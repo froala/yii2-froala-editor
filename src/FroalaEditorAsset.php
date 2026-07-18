@@ -4,6 +4,7 @@ namespace froala\froalaeditor;
 
 use yii\base\Exception;
 use yii\helpers\ArrayHelper;
+use yii\helpers\Inflector;
 use yii\web\AssetBundle;
 
 /**
@@ -64,6 +65,10 @@ class FroalaEditorAsset extends AssetBundle
     {
         $pluginNames = [];
         if (is_array($clientPlugins)) {
+            // documentation lists plugins in CamelCase, but this Asset code expects underscore, so convert to underscore
+            $clientPlugins = array_map(function ($plugin) { 
+                                                return is_array($plugin) ? $plugin : Inflector::underscore($plugin); 
+                                            }, $clientPlugins);
             if (ArrayHelper::isIndexed($clientPlugins, true)) {
                 // sequential array = list of plugins to be included
                 // use default configurations for every plugin
