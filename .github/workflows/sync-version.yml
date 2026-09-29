@@ -77,8 +77,15 @@ jobs:
 
       - name: Update composer.json
         run: |
-          jq ".version = \"$VERSION\"" composer.json > tmp.json
+          jq --arg v "$VERSION" \
+             '.version = $v | .require["froala/wysiwyg-editor"] = $v' \
+             composer.json > tmp.json
           mv tmp.json composer.json
+      
+          # verify both writes landed correctly
+          jq -e --arg v "$VERSION" \
+             '.version == $v and .require["froala/wysiwyg-editor"] == $v' \
+             composer.json > /dev/null || { echo "composer.json update failed"; exit 1; }
 
 
       - name: Commit & push
