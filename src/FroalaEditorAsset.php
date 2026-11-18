@@ -49,7 +49,7 @@ class FroalaEditorAsset extends AssetBundle
     public $froalaPlugins = [
         'align', 'char_counter', 'code_beautifier', 'code_view', 'colors',
         'draggable', 'emoticons', 'entities', 'file', 'font_family',
-        'font_size', 'fullscreen', 'image', 'image_manager', 'inline_style',
+        'font_size', 'fullscreen', 'image', 'image_manager', 'import_from_word', 'inline_style',
         'line_breaker', 'link', 'lists', 'paragraph_format', 'paragraph_style',
         'quick_insert', 'quote', 'save', 'table', 'url', 'video', 'help', 'print',
         'special_characters', 'word_paste', 'markdown', 'track_changes'
